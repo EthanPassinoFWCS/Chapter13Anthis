@@ -173,7 +173,7 @@ class AlienInvasion:
                 self.ship.update() # updating ship
                 self._update_bullets() # updating bullets
                 self._update_aliens() # updating aliens
-                self._update_screen() # runs the updating screen, which draws objects to the screen and backgrounds and such.
+            self._update_screen() # runs the updating screen, which draws objects to the screen and backgrounds and such.
 
 
 if __name__ == '__main__':
