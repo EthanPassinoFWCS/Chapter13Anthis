@@ -15,11 +15,13 @@ class Ship:
 
         self.image = pygame.image.load("bin/spaceship.bmp")
         # ship image.
-
+        print(f"({self.image.get_rect().width}, {self.image.get_rect().height})")
         self.image = pygame.transform.rotate(self.image, -90)
         # sets the image to rotate -90 degrees
 
+
         self.rect = self.image.get_rect()
+        print(f"({self.rect.width}, {self.rect.height})")
         # Get ship rectangles.
 
         self.rect.midleft = self.screen_rect.midleft

@@ -32,12 +32,12 @@ class AlienInvasion:
         alien_width, alien_height = alien.rect.size
 
         # Getting number of aliens per row.
-        available_space_x = self.settings.screen_height - (2 * alien_width) # gets space available by removing two aliens (the edges of the screen) from the length.
+        available_space_x = self.settings.screen_width - (2 * alien_width) # gets space available by removing two aliens (the edges of the screen) from the length.
         number_aliens_x =   available_space_x // (2 * alien_width) # Basically one alien is technically two (because its space counts as one) so we check how many 2 we can draw to screen.
 
         # Getting the number of rows of aliens that fits on the screen.
-        ship_height = self.ship.rect.height
-        available_space_y = (self.settings.screen_width - (3 * alien_height) - ship_height)
+        ship_width = self.ship.rect.width
+        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_width)
         number_rows = available_space_y // (2 * alien_height)
 
         # Creating full fleet of aliens:
@@ -53,6 +53,7 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
+
 
     def _check_events(self): # single leading underscores definte helper methods
         for event in pygame.event.get():  # getting a event invoked from pygame or the user.
