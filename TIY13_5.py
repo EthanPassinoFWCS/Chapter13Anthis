@@ -32,12 +32,13 @@ class AlienInvasion:
         alien_width, alien_height = alien.rect.size
 
         # Getting number of aliens per row.
-        available_space_x = self.settings.screen_width - (2 * alien_width) # gets space available by removing two aliens (the edges of the screen) from the length.
+        ship_height = self.ship.rect.height
+        available_space_x = (self.settings.screen_width - (2 * alien_width)) # gets space available by removing two aliens (the edges of the screen) from the length.
         number_aliens_x =   available_space_x // (2 * alien_width) # Basically one alien is technically two (because its space counts as one) so we check how many 2 we can draw to screen.
 
         # Getting the number of rows of aliens that fits on the screen.
         ship_width = self.ship.rect.width
-        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_width)
+        available_space_y = (self.settings.screen_height - (2 * alien_height))
         number_rows = available_space_y // (2 * alien_height)
 
         # Creating full fleet of aliens:
@@ -47,11 +48,14 @@ class AlienInvasion:
                 self._create_alien(alien_number, row_number)
 
     def _create_alien(self, alien_number, row_number):
+        if alien_number == 0 or alien_number == 1:
+            return None
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
-        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+        alien.y = alien.rect.height + 2 * alien.rect.height * row_number
+        alien.rect.y = alien.y
         self.aliens.add(alien)
 
 
@@ -116,11 +120,11 @@ class AlienInvasion:
         self.aliens.update()
 
         # Look for alien-ship collisions
-        #if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            #self._ship_hit()
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
 
         # Look for aliens hitting the bottom of the screen
-        #self._check_aliens_bottom()
+        self._check_aliens_bottom()
 
     def _check_fleet_edges(self):
         for alien in self.aliens.sprites():
@@ -140,9 +144,13 @@ class AlienInvasion:
 
         screen_rect = self.screen.get_rect()
         for alien in self.aliens.sprites():
-            if alien.rect.bottom >= screen_rect.bottom:
-                #self._ship_hit()
+            if alien.rect.left <= screen_rect.left:
+                self._ship_hit()
                 break
+
+    def _ship_hit(self):
+        """Stuff done when the ship gets hit"""
+        return None
 
     def run_game(self):
         while True:  # always running

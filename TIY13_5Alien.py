@@ -18,7 +18,6 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
 
         # Storing exact horizontal position of alien.
-        self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
     def check_edges(self):
@@ -28,4 +27,4 @@ class Alien(Sprite):
 
     def update(self):
         self.y += (self.settings.alien_speed * self.settings.fleet_direction)
-        self.rect.y = self.y
+        self.rect.y = float(self.y)
